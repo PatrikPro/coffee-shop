@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
+import { PromoBanner } from "@/components/sections/PromoBanner";
 import { MenuPreview } from "@/components/sections/MenuPreview";
 import { Gallery } from "@/components/sections/Gallery";
 import { Events } from "@/components/sections/Events";
@@ -14,6 +15,7 @@ export default function HomePage() {
   return (
     <main id="main-content">
       <Hero />
+      <PromoBanner />
       <About />
       <MenuPreview />
       <Gallery />

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "./ContactForm";
+import { OpeningHoursList } from "@/components/shared/OpeningHoursList";
+import { loadOpeningHours } from "@/lib/sanity/loaders";
 import { FiMapPin, FiPhone, FiMail, FiClock } from "react-icons/fi";
 
 export const metadata: Metadata = {
@@ -8,7 +10,9 @@ export const metadata: Metadata = {
     "Kontaktuj Zuzu Café – formulář, telefon, e-mail, mapa a otevírací doba.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const openingHours = await loadOpeningHours();
+
   return (
     <main id="main-content" className="py-12 md:py-20">
       <div className="container-main">
@@ -70,11 +74,7 @@ export default function ContactPage() {
                   <p className="font-sans font-semibold text-coffee">
                     Otevírací doba
                   </p>
-                  <ul className="text-coffee-600 font-serif text-sm space-y-0.5">
-                    <li>Po–Pá: 8:00–20:00</li>
-                    <li>So: 9:00–21:00</li>
-                    <li>Ne: 9:00–18:00</li>
-                  </ul>
+                  <OpeningHoursList days={openingHours.days} className="text-coffee-600 font-serif text-sm space-y-0.5" />
                 </div>
               </div>
             </div>

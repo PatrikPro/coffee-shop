@@ -31,6 +31,31 @@ npm run dev
 
 Otevři [http://localhost:3000](http://localhost:3000).
 
+## Editing content (Sanity, česky)
+
+1. **Spuštění webu**
+   ```bash
+   npm install
+   npm run dev
+   ```
+2. **Spuštění Sanity Studia**
+   ```bash
+   cd sanity-studio
+   npm install
+   npm run dev
+   ```
+3. **Nastavení `.env.local`**
+   ```bash
+   NEXT_PUBLIC_SANITY_PROJECT_ID=pl16phi2
+   NEXT_PUBLIC_SANITY_DATASET=production
+   NEXT_PUBLIC_SANITY_API_VERSION=2025-02-19
+   ```
+
+Klient v adminu upravuje pouze 3 věci:
+- **Menu**: sekce, položky, fotky, ceny, pořadí, volitelně badge (např. Novinka).
+- **Otevírací doba**: časy pro Po–Ne + volitelná poznámka.
+- **Promo**: zapnout/vypnout, text, tlačítko, odkaz, volitelný obrázek a platnost od/do.
+
 ## Skripty
 
 | Příkaz | Popis |
@@ -58,7 +83,7 @@ Otevři [http://localhost:3000](http://localhost:3000).
 | URL | Popis |
 |-----|-------|
 | `/` | Homepage – hero, o nás, menu preview, galerie, akce, recenze, kontakt |
-| `/menu` | Kompletní menu s filtry (kategorie, tagy, hledání, max cena) + detail modal |
+| `/menu` | Kompletní menu načítané ze Sanity CMS |
 | `/rezervace` | 3-krokový formulář (datum/čas → kontakt → rekapitulace) |
 | `/kontakt` | Kontaktní formulář + mapa + otevírací doba |
 | `/ochrana-soukromi` | GDPR / ochrana soukromí (placeholder) |
@@ -81,37 +106,6 @@ curl -H "X-Export-Token: change-me-before-deploy" http://localhost:3000/api/rese
 # Nebo s query parametrem:
 curl "http://localhost:3000/api/reservations-export?token=change-me-before-deploy"
 ```
-
-## Správa menu
-
-Menu je uložené v `content/menu.json`. Formát:
-
-```json
-{
-  "categories": [{ "id": "espresso", "name": "Espresso", "description": "...", "order": 1 }],
-  "items": [{ "id": "espresso-single", "name": "Espresso", "price": 55, "category": "espresso", "tags": ["oblíbené"], ... }]
-}
-```
-
-### Tagy pro filtrování
-
-`vegan` | `bezlepkové` | `bez-kofeinu` | `work-friendly` | `oblíbené` | `sezónní`
-
-### YAML podpora (volitelná)
-
-1. Nainstalujte `npm i yaml`
-2. Vytvořte `content/menu.yaml` ve stejném formátu
-3. Odkomentujte `YamlMenuProvider` v `lib/menu/loadMenu.ts`
-
-### Headless CMS (unspecified – zatím neimplementováno)
-
-Rozhraní `MenuProvider` je připraveno v `lib/menu/loadMenu.ts`. Doporučené CMS:
-
-1. **Sanity.io** – flexibilní, free tier, real-time preview, GROQ dotazy
-2. **Strapi** – open-source, self-hosted, REST + GraphQL
-3. **Contentful** – cloud, CDN, bohatý ekosystém pluginů
-
-Pro přepnutí: implementujte `MenuProvider` interface a změňte export.
 
 ## Ochrana proti spamu
 

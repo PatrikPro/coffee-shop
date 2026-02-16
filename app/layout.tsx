@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Merriweather } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { loadOpeningHours } from "@/lib/sanity/loaders";
 import "./globals.css";
 
 /* ===== Fonty (next/font/google) ===== */
@@ -39,11 +40,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const openingHours = await loadOpeningHours();
+
   return (
     <html lang="cs" className={`${inter.variable} ${merriweather.variable}`}>
       <body className="flex flex-col min-h-screen">
@@ -56,7 +59,7 @@ export default function RootLayout({
 
         <div className="flex-1">{children}</div>
 
-        <Footer />
+        <Footer openingDays={openingHours.days} />
       </body>
     </html>
   );

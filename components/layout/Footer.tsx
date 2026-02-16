@@ -5,11 +5,17 @@ import { useState } from "react";
 import { FiInstagram, FiFacebook, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { Button } from "@/components/ui/Button";
 import { Toast } from "@/components/ui/Toast";
+import { OpeningHoursList } from "@/components/shared/OpeningHoursList";
+import type { OpeningHoursDay } from "@/lib/sanity/types";
 
 /**
  * Globální footer s kontaktními údaji, sociálními sítěmi a newsletter signup.
  */
-export function Footer() {
+interface FooterProps {
+  openingDays: OpeningHoursDay[];
+}
+
+export function Footer({ openingDays }: FooterProps) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
@@ -71,12 +77,7 @@ export function Footer() {
               <h4 className="text-sm font-sans font-semibold text-white mb-1">
                 Otevírací doba
               </h4>
-              <ul className="text-sm space-y-0.5">
-                {/* UNSPECIFIED – placeholder otevírací doba */}
-                <li>Po–Pá: 8:00–20:00</li>
-                <li>So: 9:00–21:00</li>
-                <li>Ne: 9:00–18:00</li>
-              </ul>
+              <OpeningHoursList days={openingDays} className="text-sm space-y-0.5" />
             </div>
           </div>
 

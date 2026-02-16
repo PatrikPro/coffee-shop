@@ -1,32 +1,30 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { OpeningHoursList } from "@/components/shared/OpeningHoursList";
+import { loadOpeningHours } from "@/lib/sanity/loaders";
 import { FiMapPin, FiPhone, FiMail, FiClock } from "react-icons/fi";
 
 /**
  * Kontaktní blok na homepage – mapa, adresa, otevírací doba, CTA.
  */
-export function ContactBlock() {
+export async function ContactBlock() {
+  const openingHours = await loadOpeningHours();
+
   return (
     <section id="kontakt" className="py-16 md:py-24 bg-cream-50">
       <div className="container-main">
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-sans font-bold text-coffee mb-3">
-            Kde nás najdeš
-          </h2>
-          <p className="text-coffee-600 font-serif text-lg">
-            Stavte se na kávu. Rádi vás uvidíme.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-sans font-bold text-coffee mb-3">Kde nás najdeš</h2>
+          <p className="text-coffee-600 font-serif text-lg">Stavte se na kávu. Rádi vás uvidíme.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Info */}
           <div className="space-y-6">
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <FiMapPin className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <div>
                   <p className="font-sans font-semibold text-coffee">Adresa</p>
-                  {/* UNSPECIFIED – placeholder */}
                   <p className="text-coffee-600 font-serif">Školská 12, Praha 2</p>
                 </div>
               </div>
@@ -35,10 +33,7 @@ export function ContactBlock() {
                 <FiPhone className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <div>
                   <p className="font-sans font-semibold text-coffee">Telefon</p>
-                  <a
-                    href="tel:+420777123456"
-                    className="text-coffee-600 font-serif hover:text-coffee transition-colors"
-                  >
+                  <a href="tel:+420777123456" className="text-coffee-600 font-serif hover:text-coffee transition-colors">
                     +420 777 123 456
                   </a>
                 </div>
@@ -61,12 +56,7 @@ export function ContactBlock() {
                 <FiClock className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <div>
                   <p className="font-sans font-semibold text-coffee">Otevírací doba</p>
-                  {/* UNSPECIFIED – placeholder */}
-                  <ul className="text-coffee-600 font-serif text-sm space-y-0.5">
-                    <li>Po–Pá: 8:00–20:00</li>
-                    <li>So: 9:00–21:00</li>
-                    <li>Ne: 9:00–18:00</li>
-                  </ul>
+                  <OpeningHoursList days={openingHours.days} className="text-coffee-600 font-serif text-sm space-y-0.5" />
                 </div>
               </div>
             </div>
@@ -81,7 +71,6 @@ export function ContactBlock() {
             </div>
           </div>
 
-          {/* Mapa (lazy-loaded iframe) */}
           <div className="rounded-xl overflow-hidden shadow-md">
             <iframe
               title="Mapa – Zuzu Café"
