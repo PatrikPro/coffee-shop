@@ -2,30 +2,24 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Card, CardBody } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { loadMenu } from "@/lib/menu/loadMenu";
+import { loadCafeMenu } from "@/lib/sanity/loaders";
 
 /**
  * Preview 6 top položek menu na homepage.
  * Server Component – data se načtou na serveru.
  */
 export async function MenuPreview() {
-  const menu = await loadMenu();
+  const menu = await loadCafeMenu();
+  const allItems = menu.sections.flatMap((section) => section.items);
 
-  // Vyber oblíbené nebo prvních 6 položek
-  const featured = menu.items
-    .filter((item) => item.tags.includes("oblíbené"))
+  const featured = allItems
+    .filter((item) => item.badge?.toLowerCase().includes("novinka"))
     .slice(0, 6);
 
-  // Pokud není dost oblíbených, doplň
   const items =
     featured.length >= 6
       ? featured
-      : [
-          ...featured,
-          ...menu.items
-            .filter((i) => !featured.includes(i))
-            .slice(0, 6 - featured.length),
-        ];
+      : [...featured, ...allItems.filter((i) => !featured.includes(i)).slice(0, 6 - featured.length)];
 
   return (
     <section id="menu-preview" className="py-16 md:py-24 bg-cream-50">
@@ -41,26 +35,22 @@ export async function MenuPreview() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => (
-            <Card key={item.id} hoverable>
+            <Card key={item._key} hoverable>
               <CardBody>
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-sans font-bold text-coffee">
-                    {item.name}
-                  </h3>
+                <div className="flex justify-between items-start mb-2 gap-2">
+                  <h3 className="text-lg font-sans font-bold text-coffee">{item.name}</h3>
                   <span className="text-lg font-sans font-bold text-accent whitespace-nowrap ml-3">
                     {item.price}&nbsp;Kč
                   </span>
                 </div>
-                <p className="text-sm text-coffee-600 font-serif mb-3">
-                  {item.description}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map((tag) => (
-                    <Badge key={tag} variant="outline">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                {item.description && (
+                  <p className="text-sm text-coffee-600 font-serif mb-3">{item.description}</p>
+                )}
+                {item.badge && (
+                  <div className="flex flex-wrap gap-1.5">
+                    <Badge variant="outline">{item.badge}</Badge>
+                  </div>
+                )}
               </CardBody>
             </Card>
           ))}

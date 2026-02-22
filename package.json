@@ -9,35 +9,41 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "studio:dev": "npm --prefix sanity-studio run dev",
+    "studio:build": "npm --prefix sanity-studio run build",
+    "studio:deploy": "npm --prefix sanity-studio run deploy",
+    "studio:seed": "node scripts/seed-sanity.mjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "clsx": "^2.1.0",
     "next": "^15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.0",
-    "@hookform/resolvers": "^3.9.0",
-    "zod": "^3.24.0",
-    "clsx": "^2.1.0",
+    "react-icons": "^5.4.0",
     "tailwind-merge": "^2.6.0",
-    "react-icons": "^5.4.0"
+    "zod": "^3.24.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.0.0",
+    "@sanity/client": "^6.29.1",
+    "@testing-library/jest-dom": "^6.6.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.7.0",
-    "tailwindcss": "^3.4.0",
-    "postcss": "^8.4.0",
+    "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.0",
+    "dotenv": "^17.3.1",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.1.0",
-    "@eslint/eslintrc": "^3.0.0",
-    "vitest": "^2.1.0",
-    "@testing-library/react": "^16.1.0",
-    "@testing-library/jest-dom": "^6.6.0",
-    "@testing-library/user-event": "^14.5.0",
-    "@vitejs/plugin-react": "^4.3.0",
-    "jsdom": "^25.0.0"
+    "jsdom": "^25.0.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
   }
 }
