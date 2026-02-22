@@ -18,7 +18,7 @@ function createQueryUrl(query: string, params: Record<string, string> = {}) {
   const search = new URLSearchParams({ query });
 
   for (const [key, value] of Object.entries(params)) {
-    search.set(`$${key}`, value);
+    search.set(`$${key}`, JSON.stringify(value));
   }
 
   return `https://${projectId}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${dataset}?${search.toString()}`;

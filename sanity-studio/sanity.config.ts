@@ -1,5 +1,6 @@
 import { defineConfig } from "sanity";
-import { deskTool } from "sanity/desk";
+import { structureTool } from "sanity/structure";
+import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./schemaTypes";
 import { deskStructure } from "./structure/deskStructure";
 import { singletonActions } from "./structure/singletons";
@@ -12,9 +13,10 @@ export default defineConfig({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "pl16phi2",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   plugins: [
-    deskTool({
+    structureTool({
       structure: deskStructure,
     }),
+    visionTool(),
   ],
   schema: {
     types: schemaTypes,

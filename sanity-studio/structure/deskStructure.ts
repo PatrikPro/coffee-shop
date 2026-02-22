@@ -1,4 +1,4 @@
-import type { StructureResolver } from "sanity/desk";
+import type { StructureResolver } from "sanity/structure";
 
 const singletonIds = {
   cafeMenu: "cafeMenuSingleton",

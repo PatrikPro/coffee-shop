@@ -1,0 +1,5 @@
+Set up Sanity CMS integration and fix GROQ query encoding
+
+Fix GROQ params to be JSON-encoded (fixes 400 Bad Request from Sanity API).
+Migrate deskTool to structureTool, add visionTool, fix Turbopack root.
+Add studio:seed script and scripts/seed-sanity.mjs for initial demo content.
